@@ -249,19 +249,29 @@ body {
 
 .overlay {
     position: fixed;
+
+
     inset: 0;
 
-    background: rgba(0, 0, 0, 0.65);
+
+    background:
+        rgba(0, 0, 0, 0.65);
+
 
     opacity: 0;
+
+
     visibility: hidden;
+
 
     transition:
         opacity 0.3s ease,
         visibility 0.3s ease;
 
+
     z-index: 10;
 }
+
 
 .overlay.active {
 
@@ -293,7 +303,7 @@ body {
 
 
     transform:
-        translate(-50%, -48%)
+        translate(-50%, -50%)
         scale(0.97);
 
 
@@ -319,9 +329,9 @@ body {
 
 
     transition:
-        opacity 0.45s ease,
-        transform 0.45s ease,
-        visibility 0.45s ease;
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s ease;
 
 
     z-index: 20;
@@ -578,6 +588,26 @@ form {
 
 
 /* ------------------------------
+   REMOVE NUMBER ARROWS
+------------------------------ */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+}
+
+
+input[type="number"] {
+
+    -moz-appearance: textfield;
+}
+
+
+
+/* ------------------------------
    ERROR MESSAGE
 ------------------------------ */
 
@@ -793,11 +823,11 @@ form {
 
     .apply-button {
 
-        bottom: 40px;
+        bottom: 65px;
 
 
         padding:
-            17px 48px;
+            20px 55px;
 
     }
 
