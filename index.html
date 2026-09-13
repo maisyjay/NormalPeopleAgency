@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>normal people</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- LANDING PAGE -->
+
+    <main class="landing">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+            normal people
+        </div>
+
+
+
+        <!-- CENTRE TEXT -->
+
+        <div class="scouted">
+
+            <h1>
+                you've been scouted
+            </h1>
+
+            <p>
+                tell us a little about yourself and we'll be in touch
+            </p>
+
+        </div>
+
+
+
+        <!-- APPLY BUTTON -->
+
+        <button
+            class="apply-button"
+            onclick="openApplication()"
+        >
+            APPLY
+        </button>
+
+
+
+        <!-- COPYRIGHT -->
+
+        <div class="copyright">
+            © normal people 2026
+        </div>
+
+
+    </main>
+
+
+
+    <!-- DARK OVERLAY -->
+
+    <div
+        class="overlay"
+        id="overlay"
+        onclick="closeApplication()"
+    ></div>
+
+
+
+    <!-- APPLICATION POPUP -->
+
+    <section
+        class="application"
+        id="application"
+    >
+
+
+        <!-- APPLICATION HEADER -->
+
+        <div class="application-header">
+
+            <div class="application-logo">
+                normal people
+            </div>
+
+
+            <button
+                class="close"
+                onclick="closeApplication()"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <!-- FORM INTRO -->
+
+        <div class="form-intro">
+
+            <h2>
+                let's get to know you
+            </h2>
+
+            <p>
+                a few details to get things started
+            </p>
+
+        </div>
+
+
+
+        <!-- FORM -->
+
+        <form id="applicationForm">
+
+
+            <!-- NAME -->
+
+            <div class="field">
+
+                <label for="name">
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                >
+
+                <div class="error-message">
+                    who are you?
+                </div>
+
+            </div>
+
+
+
+            <!-- AGE -->
+
+            <div class="field">
+
+                <label for="age">
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    id="age"
+                    name="age"
+                >
+
+                <div class="error-message">
+                    we need to know
+                </div>
+
+            </div>
+
+
+
+            <!-- HEIGHT -->
+
+            <div class="field">
+
+                <label for="height">
+                    Height
+                </label>
+
+                <input
+                    type="text"
+                    id="height"
+                    name="height"
+                    placeholder="e.g. 5'10"
+                >
+
+                <div class="error-message">
+                    how tall are you?
+                </div>
+
+            </div>
+
+
+
+            <!-- INSTAGRAM -->
+
+            <div class="field">
+
+                <label for="instagram">
+                    Instagram
+                </label>
+
+                <input
+                    type="text"
+                    id="instagram"
+                    name="instagram"
+                    placeholder="@username"
+                >
+
+                <div class="error-message">
+                    show us where to find you
+                </div>
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="field">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="text"
+                    id="email"
+                    name="email"
+                >
+
+                <div class="error-message">
+                    where can we reach you?
+                </div>
+
+            </div>
+
+
+
+            <!-- PHONE -->
+
+            <div class="field">
+
+                <label for="phone">
+                    Phone number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                >
+
+                <div class="error-message">
+                    one more way to find you
+                </div>
+
+            </div>
+
+
+
+            <!-- SUBMIT BUTTON -->
+
+            <button
+                type="submit"
+                class="submit-button"
+            >
+                SEND APPLICATION
+            </button>
+
+
+        </form>
+
+
+    </section>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
