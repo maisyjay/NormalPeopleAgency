@@ -8,7 +8,6 @@ function openApplication() {
         .getElementById("overlay")
         .classList.add("active");
 
-
     document
         .getElementById("application")
         .classList.add("active");
@@ -26,7 +25,6 @@ function closeApplication() {
     document
         .getElementById("overlay")
         .classList.remove("active");
-
 
     document
         .getElementById("application")
@@ -56,7 +54,7 @@ document.addEventListener(
 
 
 /* ------------------------------
-   FORM VALIDATION
+   FORM
 ------------------------------ */
 
 const form =
@@ -65,11 +63,37 @@ const form =
     );
 
 
+const submitButton =
+    form.querySelector(
+        ".submit-button"
+    );
+
+
+const successMessage =
+    document.getElementById(
+        "successMessage"
+    );
+
+
+const submitError =
+    document.getElementById(
+        "submitError"
+    );
+
+
+
+/* ------------------------------
+   FORM VALIDATION + SUBMISSION
+------------------------------ */
+
 form.addEventListener(
     "submit",
-    function(event) {
+    async function(event) {
 
         event.preventDefault();
+
+
+        let valid = true;
 
 
         const fields =
@@ -78,8 +102,17 @@ form.addEventListener(
             );
 
 
-        let valid = true;
+        /* HIDE OLD MESSAGES */
 
+        successMessage.style.display =
+            "none";
+
+        submitError.style.display =
+            "none";
+
+
+
+        /* CHECK EACH FIELD */
 
         fields.forEach(
             function(field) {
@@ -90,10 +123,7 @@ form.addEventListener(
                     );
 
 
-                /*
-                    Check if the field
-                    is empty
-                */
+                /* EMPTY FIELD */
 
                 if (
                     field.value.trim() === ""
@@ -108,6 +138,28 @@ form.addEventListener(
 
                 }
 
+
+                /* EMAIL */
+
+                else if (
+                    field.id === "email" &&
+                    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                        field.value
+                    )
+                ) {
+
+                    container
+                        .classList
+                        .add("error");
+
+
+                    valid = false;
+
+                }
+
+
+                /* VALID FIELD */
+
                 else {
 
                     container
@@ -120,15 +172,96 @@ form.addEventListener(
         );
 
 
-        /*
-            If everything is filled in
-        */
 
-        if (valid) {
+        /* STOP IF INVALID */
 
-            alert(
-                "thank you. we'll be in touch."
-            );
+        if (!valid) {
+
+            return;
+
+        }
+
+
+
+        /* ------------------------------
+           SEND TO FORMSPREE
+        ------------------------------ */
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "SENDING...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "https://formspree.io/f/mrpgnrew",
+                    {
+                        method: "POST",
+
+                        body: new FormData(form),
+
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+            if (response.ok) {
+
+                /* SUCCESS */
+
+                form
+                    .querySelectorAll(
+                        ".field"
+                    )
+                    .forEach(
+                        function(field) {
+
+                            field.style.display =
+                                "none";
+
+                        }
+                    );
+
+
+                submitButton.style.display =
+                    "none";
+
+
+                successMessage.style.display =
+                    "block";
+
+            }
+
+
+            else {
+
+                throw new Error(
+                    "Form submission failed"
+                );
+
+            }
+
+        }
+
+
+        catch (error) {
+
+            submitError.style.display =
+                "block";
+
+
+            submitButton.disabled =
+                false;
+
+
+            submitButton.textContent =
+                "SEND APPLICATION";
 
         }
 
