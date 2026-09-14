@@ -10,7 +10,6 @@ function openApplication() {
         .classList
         .add("active");
 
-
     document
         .getElementById("application")
         .classList
@@ -31,7 +30,6 @@ function closeApplication() {
         .classList
         .remove("active");
 
-
     document
         .getElementById("application")
         .classList
@@ -49,9 +47,7 @@ document.addEventListener(
     "keydown",
     function(event) {
 
-        if (
-            event.key === "Escape"
-        ) {
+        if (event.key === "Escape") {
 
             closeApplication();
 
@@ -63,7 +59,7 @@ document.addEventListener(
 
 
 /* ------------------------------
-   CUSTOM VALIDATION
+   FORM
 ------------------------------ */
 
 const form =
@@ -72,9 +68,35 @@ const form =
     );
 
 
+const submitButton =
+    form.querySelector(
+        ".submit-button"
+    );
+
+
+const thankYouScreen =
+    document.getElementById(
+        "thankYouScreen"
+    );
+
+
+const submissionError =
+    document.getElementById(
+        "submissionError"
+    );
+
+
+
+/* ------------------------------
+   FORM SUBMISSION
+------------------------------ */
+
 form.addEventListener(
     "submit",
-    function(event) {
+    async function(event) {
+
+        event.preventDefault();
+
 
         let valid = true;
 
@@ -84,6 +106,11 @@ form.addEventListener(
                 ".field input"
             );
 
+
+
+        /* --------------------------
+           VALIDATE FIELDS
+        -------------------------- */
 
         fields.forEach(
             function(field) {
@@ -99,16 +126,13 @@ form.addEventListener(
 
 
 
-                /* EMPTY */
+                /* EMPTY FIELD */
 
-                if (
-                    value === ""
-                ) {
+                if (value === "") {
 
                     container
                         .classList
                         .add("error");
-
 
                     valid = false;
 
@@ -138,7 +162,6 @@ form.addEventListener(
                             .classList
                             .add("error");
 
-
                         valid = false;
 
                         return;
@@ -160,14 +183,125 @@ form.addEventListener(
 
 
 
-        /*
-           STOP FORMspree IF
-           OUR VALIDATION FAILS
-        */
+        /* STOP IF INVALID */
 
         if (!valid) {
 
-            event.preventDefault();
+            return;
+
+        }
+
+
+
+        /* --------------------------
+           SENDING STATE
+        -------------------------- */
+
+        submitButton.disabled =
+            true;
+
+        submitButton.textContent =
+            "SENDING...";
+
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "https://formspree.io/f/mrpgnrew",
+                    {
+                        method: "POST",
+
+                        body:
+                            new FormData(form),
+
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+
+            /* --------------------------
+               SUCCESS
+            -------------------------- */
+
+            if (
+                response.ok
+            ) {
+
+                /*
+                   Hide the application
+                   and dark overlay
+                */
+
+                document
+                    .getElementById(
+                        "application"
+                    )
+                    .classList
+                    .remove("active");
+
+
+                document
+                    .getElementById(
+                        "overlay"
+                    )
+                    .classList
+                    .remove("active");
+
+
+
+                /*
+                   Show our own
+                   full-screen message
+                */
+
+                thankYouScreen
+                    .classList
+                    .add("active");
+
+
+                return;
+
+            }
+
+
+
+            /* --------------------------
+               FORMSPREE ERROR
+            -------------------------- */
+
+            throw new Error(
+                "Formspree submission failed"
+            );
+
+        }
+
+
+
+        catch (error) {
+
+            console.error(
+                "Form submission error:",
+                error
+            );
+
+
+            submitButton.disabled =
+                false;
+
+
+            submitButton.textContent =
+                "SEND APPLICATION";
+
+
+            submissionError
+                .classList
+                .add("active");
 
         }
 
@@ -197,10 +331,7 @@ document
                         .remove("error");
 
 
-                    document
-                        .getElementById(
-                            "submissionError"
-                        )
+                    submissionError
                         .classList
                         .remove("active");
 

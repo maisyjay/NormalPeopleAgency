@@ -321,55 +321,7 @@
 
     <!-- FORMSPREE -->
 
-    <script>
-
-        window.formspree =
-            window.formspree ||
-            function () {
-
-                (
-                    formspree.q =
-                    formspree.q || []
-                ).push(arguments);
-
-            };
-
-
-        formspree(
-            "initForm",
-            {
-                formElement:
-                    "#applicationForm",
-
-                formId:
-                    "mrpgnrew",
-
-                onSuccess:
-                    function () {
-
-                        document
-                            .getElementById(
-                                "thankYouScreen"
-                            )
-                            .classList
-                            .add("active");
-
-                    },
-
-                onFailure:
-                    function () {
-
-                        document
-                            .getElementById(
-                                "submissionError"
-                            )
-                            .classList
-                            .add("active");
-
-                    }
-
-            }
-        );
+   
 
     </script>
 
@@ -388,4 +340,4 @@
 </body>
 
 </html>
-```
+
