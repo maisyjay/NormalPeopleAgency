@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,15 +29,10 @@
     <main class="landing">
 
 
-        <!-- LOGO -->
-
         <div class="logo">
             normal people
         </div>
 
-
-
-        <!-- CENTRE TEXT -->
 
         <div class="scouted">
 
@@ -52,9 +47,6 @@
         </div>
 
 
-
-        <!-- APPLY BUTTON -->
-
         <button
             type="button"
             class="apply-button"
@@ -63,9 +55,6 @@
             APPLY
         </button>
 
-
-
-        <!-- COPYRIGHT -->
 
         <div class="copyright">
             © normal people 2026
@@ -81,7 +70,6 @@
     <div
         class="overlay"
         id="overlay"
-        onclick="closeApplication()"
     ></div>
 
 
@@ -94,8 +82,6 @@
         aria-label="Application form"
     >
 
-
-        <!-- APPLICATION HEADER -->
 
         <div class="application-header">
 
@@ -117,8 +103,6 @@
 
 
 
-        <!-- FORM INTRO -->
-
         <div class="form-intro">
 
             <h2>
@@ -133,9 +117,11 @@
 
 
 
-        <!-- APPLICATION FORM -->
+        <!-- FORM -->
 
-        <form id="applicationForm">
+        <form
+            id="applicationForm"
+        >
 
 
             <!-- NAME -->
@@ -281,31 +267,11 @@
             <button
                 type="submit"
                 class="submit-button"
+                data-fs-submit-btn
             >
                 SEND APPLICATION
             </button>
 
-
-
-            <!-- SUCCESS MESSAGE -->
-
-            <div
-                class="form-message success-message"
-                id="successMessage"
-            >
-                thank you. we'll be in touch.
-            </div>
-
-
-
-            <!-- ERROR MESSAGE -->
-
-            <div
-                class="form-message submit-error"
-                id="submitError"
-            >
-                something went wrong. please try again.
-            </div>
 
 
         </form>
@@ -315,7 +281,106 @@
 
 
 
-    <!-- JAVASCRIPT -->
+    <!-- THANK YOU SCREEN -->
+
+    <div
+        class="thank-you-screen"
+        id="thankYouScreen"
+    >
+
+        <div class="thank-you-content">
+
+            <div class="thank-you-logo">
+                normal people
+            </div>
+
+            <h1>
+                thank you.
+            </h1>
+
+            <p>
+                we'll be in touch.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SUBMISSION ERROR -->
+
+    <div
+        class="submission-error"
+        id="submissionError"
+    >
+        something went wrong. please try again.
+    </div>
+
+
+
+    <!-- FORMSPREE -->
+
+    <script>
+
+        window.formspree =
+            window.formspree ||
+            function () {
+
+                (
+                    formspree.q =
+                    formspree.q || []
+                ).push(arguments);
+
+            };
+
+
+        formspree(
+            "initForm",
+            {
+                formElement:
+                    "#applicationForm",
+
+                formId:
+                    "mrpgnrew",
+
+                onSuccess:
+                    function () {
+
+                        document
+                            .getElementById(
+                                "thankYouScreen"
+                            )
+                            .classList
+                            .add("active");
+
+                    },
+
+                onFailure:
+                    function () {
+
+                        document
+                            .getElementById(
+                                "submissionError"
+                            )
+                            .classList
+                            .add("active");
+
+                    }
+
+            }
+        );
+
+    </script>
+
+
+    <script
+        src="https://unpkg.com/@formspree/ajax@1"
+        defer
+    ></script>
+
+
+    <!-- YOUR JAVASCRIPT -->
 
     <script src="script.js"></script>
 

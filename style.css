@@ -928,3 +928,183 @@ input[type="number"] {
     }
 
 }
+
+/* ------------------------------
+   THANK YOU SCREEN
+------------------------------ */
+
+.thank-you-screen {
+    position: fixed;
+
+    inset: 0;
+
+    background: #fff;
+
+    color: #111;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    z-index: 100;
+
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+}
+
+
+.thank-you-screen.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: all;
+
+}
+
+
+.thank-you-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+.thank-you-logo {
+
+    position: absolute;
+
+    top: 28px;
+
+    left: 35px;
+
+    font-size: 13px;
+
+    letter-spacing: 0.32em;
+
+}
+
+
+.thank-you-content h1 {
+
+    font-size:
+        clamp(38px, 5vw, 65px);
+
+    font-weight: 400;
+
+    letter-spacing: -0.04em;
+
+    margin-bottom: 15px;
+
+}
+
+
+.thank-you-content p {
+
+    font-size: 10px;
+
+    letter-spacing: 0.12em;
+
+}
+
+
+
+/* ------------------------------
+   SUBMISSION ERROR
+------------------------------ */
+
+.submission-error {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 35px;
+
+    transform:
+        translateX(-50%);
+
+    padding: 12px 20px;
+
+    background: #111;
+
+    color: #fff;
+
+    font-size: 9px;
+
+    letter-spacing: 0.08em;
+
+    text-transform: lowercase;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    z-index: 200;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+
+.submission-error.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+
+
+/* ------------------------------
+   MOBILE THANK YOU
+------------------------------ */
+
+@media (max-width: 600px) {
+
+    .thank-you-logo {
+
+        top: 22px;
+
+        left: 22px;
+
+        font-size: 11px;
+
+        letter-spacing: 0.28em;
+
+    }
+
+
+    .thank-you-content h1 {
+
+        font-size: 42px;
+
+    }
+
+
+    .thank-you-content p {
+
+        font-size: 8px;
+
+    }
+
+}

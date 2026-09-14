@@ -1,3 +1,4 @@
+
 /* ------------------------------
    OPEN APPLICATION
 ------------------------------ */
@@ -6,11 +7,14 @@ function openApplication() {
 
     document
         .getElementById("overlay")
-        .classList.add("active");
+        .classList
+        .add("active");
+
 
     document
         .getElementById("application")
-        .classList.add("active");
+        .classList
+        .add("active");
 
 }
 
@@ -24,11 +28,14 @@ function closeApplication() {
 
     document
         .getElementById("overlay")
-        .classList.remove("active");
+        .classList
+        .remove("active");
+
 
     document
         .getElementById("application")
-        .classList.remove("active");
+        .classList
+        .remove("active");
 
 }
 
@@ -42,7 +49,9 @@ document.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Escape") {
+        if (
+            event.key === "Escape"
+        ) {
 
             closeApplication();
 
@@ -54,7 +63,7 @@ document.addEventListener(
 
 
 /* ------------------------------
-   FORM
+   CUSTOM VALIDATION
 ------------------------------ */
 
 const form =
@@ -63,56 +72,18 @@ const form =
     );
 
 
-const submitButton =
-    form.querySelector(
-        ".submit-button"
-    );
-
-
-const successMessage =
-    document.getElementById(
-        "successMessage"
-    );
-
-
-const submitError =
-    document.getElementById(
-        "submitError"
-    );
-
-
-
-/* ------------------------------
-   FORM VALIDATION + SUBMISSION
------------------------------- */
-
 form.addEventListener(
     "submit",
-    async function(event) {
-
-        event.preventDefault();
-
+    function(event) {
 
         let valid = true;
 
 
         const fields =
             form.querySelectorAll(
-                "input"
+                ".field input"
             );
 
-
-        /* HIDE OLD MESSAGES */
-
-        successMessage.style.display =
-            "none";
-
-        submitError.style.display =
-            "none";
-
-
-
-        /* CHECK EACH FIELD */
 
         fields.forEach(
             function(field) {
@@ -123,10 +94,15 @@ form.addEventListener(
                     );
 
 
-                /* EMPTY FIELD */
+                const value =
+                    field.value.trim();
+
+
+
+                /* EMPTY */
 
                 if (
-                    field.value.trim() === ""
+                    value === ""
                 ) {
 
                     container
@@ -136,132 +112,62 @@ form.addEventListener(
 
                     valid = false;
 
+                    return;
+
                 }
+
 
 
                 /* EMAIL */
 
-                else if (
-                    field.id === "email" &&
-                    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-                        field.value
-                    )
+                if (
+                    field.id === "email"
                 ) {
 
-                    container
-                        .classList
-                        .add("error");
+                    const emailPattern =
+                        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
-                    valid = false;
+                    if (
+                        !emailPattern.test(
+                            value
+                        )
+                    ) {
+
+                        container
+                            .classList
+                            .add("error");
+
+
+                        valid = false;
+
+                        return;
+
+                    }
 
                 }
 
 
-                /* VALID FIELD */
 
-                else {
+                /* VALID */
 
-                    container
-                        .classList
-                        .remove("error");
-
-                }
+                container
+                    .classList
+                    .remove("error");
 
             }
         );
 
 
 
-        /* STOP IF INVALID */
+        /*
+           STOP FORMspree IF
+           OUR VALIDATION FAILS
+        */
 
         if (!valid) {
 
-            return;
-
-        }
-
-
-
-        /* ------------------------------
-           SEND TO FORMSPREE
-        ------------------------------ */
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-            "SENDING...";
-
-
-        try {
-
-            const response =
-                await fetch(
-                    "https://formspree.io/f/mrpgnrew",
-                    {
-                        method: "POST",
-
-                        body: new FormData(form),
-
-                        headers: {
-                            "Accept":
-                                "application/json"
-                        }
-                    }
-                );
-
-
-            if (response.ok) {
-
-                /* SUCCESS */
-
-                form
-                    .querySelectorAll(
-                        ".field"
-                    )
-                    .forEach(
-                        function(field) {
-
-                            field.style.display =
-                                "none";
-
-                        }
-                    );
-
-
-                submitButton.style.display =
-                    "none";
-
-
-                successMessage.style.display =
-                    "block";
-
-            }
-
-
-            else {
-
-                throw new Error(
-                    "Form submission failed"
-                );
-
-            }
-
-        }
-
-
-        catch (error) {
-
-            submitError.style.display =
-                "block";
-
-
-            submitButton.disabled =
-                false;
-
-
-            submitButton.textContent =
-                "SEND APPLICATION";
+            event.preventDefault();
 
         }
 
@@ -290,8 +196,17 @@ document
                         .classList
                         .remove("error");
 
+
+                    document
+                        .getElementById(
+                            "submissionError"
+                        )
+                        .classList
+                        .remove("active");
+
                 }
             );
 
         }
     );
+
