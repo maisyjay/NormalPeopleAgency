@@ -1,3 +1,17 @@
+/* ------------------------------
+   TEST MODE
+------------------------------ */
+
+/*
+   true  = testing mode
+           nothing is sent to Formspree
+
+   false = live mode
+           applications are sent to Formspree
+*/
+
+const TEST_MODE = true;
+
 
 /* ------------------------------
    OPEN APPLICATION
@@ -16,7 +30,6 @@ function openApplication() {
         .add("active");
 
 }
-
 
 
 /* ------------------------------
@@ -38,7 +51,6 @@ function closeApplication() {
 }
 
 
-
 /* ------------------------------
    CLOSE WITH ESCAPE
 ------------------------------ */
@@ -55,7 +67,6 @@ document.addEventListener(
 
     }
 );
-
 
 
 /* ------------------------------
@@ -86,7 +97,6 @@ const submissionError =
     );
 
 
-
 /* ------------------------------
    FORM SUBMISSION
 ------------------------------ */
@@ -97,7 +107,6 @@ form.addEventListener(
 
         event.preventDefault();
 
-
         let valid = true;
 
 
@@ -105,7 +114,6 @@ form.addEventListener(
             form.querySelectorAll(
                 ".field input"
             );
-
 
 
         /* --------------------------
@@ -125,7 +133,6 @@ form.addEventListener(
                     field.value.trim();
 
 
-
                 /* EMPTY FIELD */
 
                 if (value === "") {
@@ -139,7 +146,6 @@ form.addEventListener(
                     return;
 
                 }
-
 
 
                 /* EMAIL */
@@ -171,7 +177,6 @@ form.addEventListener(
                 }
 
 
-
                 /* VALID */
 
                 container
@@ -182,15 +187,15 @@ form.addEventListener(
         );
 
 
-
-        /* STOP IF INVALID */
+        /* --------------------------
+           STOP IF INVALID
+        -------------------------- */
 
         if (!valid) {
 
             return;
 
         }
-
 
 
         /* --------------------------
@@ -204,6 +209,77 @@ form.addEventListener(
             "SENDING...";
 
 
+        /* --------------------------
+           TEST MODE
+        -------------------------- */
+
+        if (TEST_MODE) {
+
+            /*
+               Wait a moment so the
+               test feels like a real
+               submission.
+            */
+
+            setTimeout(
+                function() {
+
+                    /*
+                       Hide the application
+                    */
+
+                    document
+                        .getElementById(
+                            "application"
+                        )
+                        .classList
+                        .remove("active");
+
+
+                    /*
+                       Hide the dark overlay
+                    */
+
+                    document
+                        .getElementById(
+                            "overlay"
+                        )
+                        .classList
+                        .remove("active");
+
+
+                    /*
+                       Show thank you screen
+                    */
+
+                    thankYouScreen
+                        .classList
+                        .add("active");
+
+
+                    /*
+                       Reset button
+                    */
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        "SEND APPLICATION";
+
+                },
+                700
+            );
+
+
+            return;
+
+        }
+
+
+        /* --------------------------
+           REAL FORMSPREE SUBMISSION
+        -------------------------- */
 
         try {
 
@@ -220,9 +296,9 @@ form.addEventListener(
                             "Accept":
                                 "application/json"
                         }
+
                     }
                 );
-
 
 
             /* --------------------------
@@ -254,7 +330,6 @@ form.addEventListener(
                     .remove("active");
 
 
-
                 /*
                    Show our own
                    full-screen message
@@ -270,7 +345,6 @@ form.addEventListener(
             }
 
 
-
             /* --------------------------
                FORMSPREE ERROR
             -------------------------- */
@@ -280,7 +354,6 @@ form.addEventListener(
             );
 
         }
-
 
 
         catch (error) {
@@ -309,7 +382,6 @@ form.addEventListener(
 );
 
 
-
 /* ------------------------------
    REMOVE ERROR WHEN TYPING
 ------------------------------ */
@@ -336,8 +408,8 @@ document
                         .remove("active");
 
                 }
+
             );
 
         }
     );
-
